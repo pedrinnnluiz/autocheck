@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="autocheck.Views.PricesPage"
+             Title="Tabela de Preços">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <Label x:Name="Titulo"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource Secondary}"/>
+
+        <Frame BackgroundColor="White" CornerRadius="16" Padding="20">
+
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+
+                <Label Text="Veículo:"/>
+                <Label x:Name="NomeCarro" Grid.Column="1" FontAttributes="Bold"/>
+
+                <Label Text="Preço por dia:" Grid.Row="1"/>
+                <Label x:Name="Preco" Grid.Row="1" Grid.Column="1"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource Primary}"/>
+
+            </Grid>
+
+        </Frame>
+
+        <Label Text="Valores ilustrativos para simulação acadêmica."
+               FontSize="12"
+               HorizontalOptions="Center"
+               TextColor="Gray"/>
+
+    </VerticalStackLayout>
+</ContentPage>

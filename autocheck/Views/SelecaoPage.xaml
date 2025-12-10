@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="autocheck.Views.SelecaoPage"
+             BackgroundColor="#0F172A"
+             Title="Agendamento">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- DADOS DO CLIENTE -->
+            <Frame BackgroundColor="#E0F2FE" CornerRadius="20" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Dados do Cliente" FontSize="18" FontAttributes="Bold"/>
+
+                    <Entry x:Name="NomeEntry" Placeholder="Nome completo"/>
+                    <Entry x:Name="CpfEntry" Placeholder="CPF"/>
+                    <Entry x:Name="TelefoneEntry" Placeholder="Telefone"/>
+                    <Entry x:Name="EmailEntry" Placeholder="Email"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- LISTA DE CARROS -->
+            <Frame BackgroundColor="#020617" CornerRadius="20" Padding="10">
+                <CollectionView x:Name="CarrosView"
+                                SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="5" Padding="10" CornerRadius="12"
+                                   BackgroundColor="#020617">
+
+                                <HorizontalStackLayout Spacing="15">
+
+                                    <Image Source="{Binding Imagem}"
+                                           HeightRequest="60"
+                                           WidthRequest="100"/>
+
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding Nome}"
+                                               FontAttributes="Bold"
+                                               TextColor="White"/>
+
+                                        <Label Text="{Binding PrecoTexto}"
+                                               TextColor="#38BDF8"/>
+                                    </VerticalStackLayout>
+
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </Frame>
+
+            <!-- DATAS -->
+            <Frame BackgroundColor="#E0F2FE" CornerRadius="20" Padding="15">
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Data de Início"/>
+                    <DatePicker x:Name="InicioPicker"/>
+
+                    <Label Text="Quantidade de Dias"/>
+                    <Stepper x:Name="DiasStepper"
+                             Minimum="1"
+                             Maximum="30"/>
+
+                    <Label x:Name="DiasLabel"
+                           Text="1 dia"
+                           FontAttributes="Bold"/>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- TOTAL -->
+            <Label x:Name="TotalLabel"
+                   Text="R$ 0,00"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <!-- BOTÃO -->
+            <Button Text="Confirmar Agendamento"
+                    BackgroundColor="#1D4ED8"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="55"
+                    FontAttributes="Bold"
+                    Clicked="OnConfirmarClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
