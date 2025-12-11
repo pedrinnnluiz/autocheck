@@ -1,94 +1,106 @@
+using System;
 using System.Collections.ObjectModel;
+using Microsoft.Maui.Controls;
+using autocheck.Models;
 
-namespace autocheck.Views;
-
-public partial class SelecaoPage : ContentPage
+namespace autocheck.Views
 {
-    double valorDiaria = 0;
-    VeiculoSelecionado veiculoAtual;
-
-    public ObservableCollection<VeiculoSelecionado> Veiculos { get; set; }
-
-    public SelecaoPage()
+    [QueryProperty(nameof(ClienteNome), "ClienteNome")]
+    [QueryProperty(nameof(Telefone), "Telefone")]
+    public partial class SelecaoPage : ContentPage
     {
-        InitializeComponent();
+      
+        public string ClienteNome { get; set; }
+        public string Telefone { get; set; }
 
-        Veiculos = new ObservableCollection<VeiculoSelecionado>
+        double valorDiaria = 0;
+        VeiculoSelecionado veiculoAtual;
+
+        public ObservableCollection<VeiculoSelecionado> Veiculos { get; set; }
+
+        public SelecaoPage()
         {
-            new VeiculoSelecionado { Nome = "Fiat Argo", Preco = 100, Imagem = "argo.jpg" },
-            new VeiculoSelecionado { Nome = "Chevrolet Onix", Preco = 120, Imagem = "onix.jpg" },
-            new VeiculoSelecionado { Nome = "Toyota Corolla", Preco = 200, Imagem = "corolla.jpg" },
-            new VeiculoSelecionado { Nome = "Hyundai HB20", Preco = 110, Imagem = "hb20.jpg" },
-            new VeiculoSelecionado { Nome = "Honda Civic", Preco = 230, Imagem = "civic.jpg" },
-            new VeiculoSelecionado { Nome = "Jeep Renegade", Preco = 250, Imagem = "renegade.jpg" },
-            new VeiculoSelecionado { Nome = "Hyundai Creta", Preco = 240, Imagem = "creta.jpg" },
-            new VeiculoSelecionado { Nome = "Jeep Compass", Preco = 280, Imagem = "compass.jpg" }
-        };
+            InitializeComponent();
 
-        CarrosView.ItemsSource = Veiculos;
-        CarrosView.SelectionChanged += CarrosView_SelectionChanged;
-        DiasStepper.ValueChanged += AtualizarTotal;
-    }
+            Veiculos = new ObservableCollection<VeiculoSelecionado>
+            {
+                new VeiculoSelecionado { Nome = "Fiat Argo", Preco = 100, Imagem = "argo.jpg" },
+                new VeiculoSelecionado { Nome = "Chevrolet Onix", Preco = 120, Imagem = "onix.jpg" },
+                new VeiculoSelecionado { Nome = "Toyota Corolla", Preco = 200, Imagem = "corolla.jpg" },
+                new VeiculoSelecionado { Nome = "Hyundai HB20", Preco = 110, Imagem = "hb20.jpg" },
+                new VeiculoSelecionado { Nome = "Honda Civic", Preco = 230, Imagem = "civic.jpg" },
+                new VeiculoSelecionado { Nome = "Jeep Renegade", Preco = 250, Imagem = "renegade.jpg" },
+                new VeiculoSelecionado { Nome = "Hyundai Creta", Preco = 240, Imagem = "creta.jpg" },
+                new VeiculoSelecionado { Nome = "Jeep Compass", Preco = 280, Imagem = "compass.jpg" }
+            };
 
-    private void CarrosView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        veiculoAtual = e.CurrentSelection.FirstOrDefault() as VeiculoSelecionado;
+            CarrosView.ItemsSource = Veiculos;
+            CarrosView.SelectionChanged += CarrosView_SelectionChanged;
 
-        if (veiculoAtual != null)
-            valorDiaria = veiculoAtual.Preco;
+            DataInicioPicker.Date = DateTime.Today;
+            DataFimPicker.Date = DateTime.Today;
 
-        AtualizarTotal(null, null);
-    }
-
-    void AtualizarTotal(object sender, EventArgs e)
-    {
-        if (veiculoAtual == null)
-            return;
-
-        DiasLabel.Text = $"{DiasStepper.Value} dias";
-        double total = valorDiaria * DiasStepper.Value;
-        TotalLabel.Text = $"R$ {total:0.00}";
-    }
-
-    private async void OnConfirmarClicked(object sender, EventArgs e)
-    {
-        if (veiculoAtual == null)
-        {
-            await DisplayAlert("Erro", "Selecione um veículo!", "OK");
-            return;
+            DataInicioPicker.DateSelected += OnDateChanged;
+            DataFimPicker.DateSelected += OnDateChanged;
         }
 
-        if (string.IsNullOrWhiteSpace(NomeEntry.Text) ||
-            string.IsNullOrWhiteSpace(CpfEntry.Text) ||
-            string.IsNullOrWhiteSpace(TelefoneEntry.Text) ||
-            string.IsNullOrWhiteSpace(EmailEntry.Text))
+        private void CarrosView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            await DisplayAlert("Atenção", "Preencha todos os dados do cliente.", "OK");
-            return;
+            veiculoAtual = e.CurrentSelection.FirstOrDefault() as VeiculoSelecionado;
+
+            if (veiculoAtual != null)
+                valorDiaria = veiculoAtual.Preco;
+
+            AtualizarDiasETotal();
         }
 
-        string nome = NomeEntry.Text;
-        string cpf = CpfEntry.Text;
-        string telefone = TelefoneEntry.Text;
-        string email = EmailEntry.Text;
+        private void OnDateChanged(object sender, DateChangedEventArgs e)
+        {
+            AtualizarDiasETotal();
+        }
 
-        string veiculo = veiculoAtual.Nome;
-        string inicio = InicioPicker.Date.ToString("dd/MM/yyyy");
-        DateTime termino = InicioPicker.Date.AddDays(DiasStepper.Value);
-        string fim = termino.ToString("dd/MM/yyyy");
-        string total = TotalLabel.Text;
+        private void AtualizarDiasETotal()
+        {
+            if (DataFimPicker.Date < DataInicioPicker.Date)
+            {
+                DiasLabel.Text = "Datas inválidas";
+                TotalLabel.Text = "R$ 0,00";
+                return;
+            }
 
-        await Navigation.PushAsync(
-            new ConfirmacaoPage(nome, cpf, telefone, email, inicio, fim, veiculo, total)
-        );
+            int dias = (DataFimPicker.Date - DataInicioPicker.Date).Days + 1;
+            DiasLabel.Text = dias + (dias == 1 ? " dia" : " dias");
+
+            if (veiculoAtual == null)
+            {
+                TotalLabel.Text = "R$ 0,00";
+                return;
+            }
+
+            double total = veiculoAtual.Preco * dias;
+            TotalLabel.Text = $"R$ {total:0.00}";
+        }
+
+        private async void OnConfirmarClicked(object sender, EventArgs e)
+        {
+            if (veiculoAtual == null)
+            {
+                await DisplayAlert("Aviso", "Selecione um veículo!", "OK");
+                return;
+            }
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "Veiculo", veiculoAtual },
+                { "Dias", (DataFimPicker.Date - DataInicioPicker.Date).Days + 1 },
+                { "Total", veiculoAtual.Preco * ((DataFimPicker.Date - DataInicioPicker.Date).Days + 1) },
+
+              
+                { "ClienteNome", ClienteNome },
+                { "Telefone", Telefone }
+            };
+
+            await Shell.Current.GoToAsync("ConfirmacaoPage", parameters);
+        }
     }
-}
-
-public class VeiculoSelecionado
-{
-    public string Nome { get; set; }
-    public double Preco { get; set; }
-    public string Imagem { get; set; }
-
-    public string PrecoTexto => $"R$ {Preco:0.00} / dia";
 }

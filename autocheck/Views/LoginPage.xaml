@@ -6,50 +6,86 @@
              Title="Login">
 
     <ScrollView>
-        <VerticalStackLayout Padding="25" Spacing="20">
+        <VerticalStackLayout Padding="25" Spacing="25">
 
+        
             <VerticalStackLayout HorizontalOptions="Center">
                 <Label Text="AutoCheck"
-                       FontSize="32"
+                       FontSize="34"
                        FontAttributes="Bold"
-                       TextColor="#3B82F6"
-                       HorizontalOptions="Center"/>
+                       TextColor="#60A5FA"
+                       HorizontalOptions="Center" />
+
                 <Label Text="Sistema de Aluguel de Veículos"
                        FontSize="14"
-                       TextColor="#CBD5E1"
-                       HorizontalOptions="Center"/>
+                       TextColor="#94A3B8"
+                       HorizontalOptions="Center" />
             </VerticalStackLayout>
 
-            <Frame BackgroundColor="#E0F2FE"
-                   CornerRadius="25"
+           
+            <Frame BackgroundColor="#1E293B"
+                   CornerRadius="20"
                    Padding="20"
                    HasShadow="True">
 
-                <VerticalStackLayout Spacing="15">
+                <VerticalStackLayout Spacing="18">
 
                     <Label Text="Cadastro"
                            FontSize="22"
                            FontAttributes="Bold"
-                           TextColor="#0F172A"
-                           HorizontalOptions="Center"/>
+                           TextColor="White"
+                           HorizontalOptions="Center" />
 
-                    <Entry x:Name="NomeEntry" Placeholder="Nome completo"/>
-                    <Entry x:Name="CpfEntry" Placeholder="CPF" Keyboard="Numeric"/>
-                    <Entry x:Name="TelefoneEntry" Placeholder="Telefone" Keyboard="Telephone"/>
-                    <Entry x:Name="EmailEntry" Placeholder="Email"/>
-                    <Entry x:Name="SenhaEntry" Placeholder="Senha" IsPassword="True"/>
+           
+                    <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
+                        <Entry x:Name="NomeEntry"
+                               Placeholder="Nome completo"
+                               TextColor="White"
+                               PlaceholderColor="#9CA3AF" />
+                    </Frame>
+
+                    <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
+                        <Entry x:Name="CpfEntry"
+                               Placeholder="CPF"
+                               Keyboard="Numeric"
+                               TextColor="White"
+                               PlaceholderColor="#9CA3AF" />
+                    </Frame>
+
+                    <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
+                        <Entry x:Name="TelefoneEntry"
+                               Placeholder="Telefone"
+                               Keyboard="Telephone"
+                               TextColor="White"
+                               PlaceholderColor="#9CA3AF" />
+                    </Frame>
+
+                    <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
+                        <Entry x:Name="EmailEntry"
+                               Placeholder="Email"
+                               TextColor="White"
+                               PlaceholderColor="#9CA3AF" />
+                    </Frame>
+
+                    <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
+                        <Entry x:Name="SenhaEntry"
+                               Placeholder="Senha"
+                               IsPassword="True"
+                               TextColor="White"
+                               PlaceholderColor="#9CA3AF" />
+                    </Frame>
 
                 </VerticalStackLayout>
             </Frame>
 
             <Button Text="Entrar"
-                    BackgroundColor="#1D4ED8"
+                    BackgroundColor="#6366F1"
                     TextColor="White"
-                    CornerRadius="25"
                     HeightRequest="55"
-                    FontSize="16"
+                    FontSize="18"
                     FontAttributes="Bold"
-                    Clicked="OnLoginClicked"/>
+                    CornerRadius="15"
+                    Clicked="OnLoginClicked" />
 
         </VerticalStackLayout>
     </ScrollView>

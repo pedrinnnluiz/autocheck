@@ -1,20 +1,46 @@
-namespace autocheck.Views;
+ï»¿using Microsoft.Maui.Controls;
+using autocheck.Models;
 
-public partial class ConfirmacaoPage : ContentPage
+namespace autocheck.Views
 {
-    public ConfirmacaoPage(string nome, string inicio, string fim, string veiculo, string total)
+    [QueryProperty(nameof(Veiculo), "Veiculo")]
+    [QueryProperty(nameof(Dias), "Dias")]
+    [QueryProperty(nameof(Total), "Total")]
+    [QueryProperty(nameof(ClienteNome), "ClienteNome")]
+    [QueryProperty(nameof(Telefone), "Telefone")]
+    public partial class ConfirmacaoPage : ContentPage
     {
-        InitializeComponent();
+        public VeiculoSelecionado Veiculo { get; set; }
+        public double Dias { get; set; }
+        public double Total { get; set; }
 
-        NomeLabel.Text = $"Cliente: {nome}";
-        InicioLabel.Text = $"Data Início: {inicio}";
-        FimLabel.Text = $"Data Término: {fim}";
-        VeiculoLabel.Text = $"Veículo: {veiculo}";
-        TotalLabel.Text = $"Valor Total: {total}";
-    }
+        public string ClienteNome { get; set; }
+        public string Telefone { get; set; }
 
-    private async void OnFinalizarClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopToRootAsync();
+        public ConfirmacaoPage()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            NomeClienteLabel.Text = $"Cliente: {ClienteNome}";
+            TelefoneLabel.Text = $"Telefone: {Telefone}";
+
+            if (Veiculo != null)
+            {
+                NomeLabel.Text = $"VeÃ­culo: {Veiculo.Nome}";
+                InicioLabel.Text = $"Dias de Aluguel: {Dias}";
+                VeiculoLabel.Text = $"PreÃ§o por dia: R$ {Veiculo.Preco:0.00}";
+                TotalLabel.Text = $"Total: R$ {Total:0.00}";
+            }
+        }
+
+        private async void OnFinalizarClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopToRootAsync();
+        }
     }
 }

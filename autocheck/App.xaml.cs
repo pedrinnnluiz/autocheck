@@ -1,12 +1,22 @@
-﻿using autocheck.Views;
-
-namespace autocheck;
-
-public partial class App : Application
+﻿namespace autocheck
 {
-    public App()
+    public partial class App : Application
     {
-        InitializeComponent();
-        MainPage = new NavigationPage(new LoginPage());
+        public App()
+        {
+            InitializeComponent();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            var window = new Window(new AppShell());
+
+         
+            Shell.Current?.GoToAsync("//LoginPage");
+
+            return window;
+        }
+
+
     }
 }
