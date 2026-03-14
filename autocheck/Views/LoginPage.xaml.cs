@@ -1,3 +1,5 @@
+using autocheck.Models;
+
 namespace autocheck.Views
 {
     public partial class LoginPage : ContentPage
@@ -19,9 +21,35 @@ namespace autocheck.Views
                 return;
             }
 
+            int clienteId;
+
+            if (!int.TryParse(CpfEntry.Text, out clienteId))
+            {
+                await DisplayAlert("Erro", "Digite um número válido", "OK");
+                return;
+            } 
+            var usuario = new Usuario
+            {
+                Nome = NomeEntry.Text,
+                Telefone = TelefoneEntry.Text,
+                Cpf = CpfEntry.Text,
+                Senha = SenhaEntry.Text,
+                Email = EmailEntry.Text,
+
+               
+            };
             await Shell.Current.GoToAsync(
      $"//SelecaoPage?ClienteNome={NomeEntry.Text}&Telefone={TelefoneEntry.Text}"
  );
         }
+
+        private async void Possuicadastro_Clicked(object sender, EventArgs e)
+        {
+            bool confirmar = await DisplayAlert("Confirmar", "Tem certeza de que deseja excluir sua conta", "sim", "nao");
+
+            if (confirmar) {
+                await db.DeletarUsuario(usuario.id);
+        } }
+
     }
 }

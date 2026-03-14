@@ -55,7 +55,8 @@
                     <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
                         <Entry x:Name="TelefoneEntry"
                                Placeholder="Telefone"
-                               Keyboard="Telephone"
+
+                               Keyboard="Numeric"
                                TextColor="White"
                                PlaceholderColor="#9CA3AF" />
                     </Frame>
@@ -70,6 +71,7 @@
                     <Frame BackgroundColor="#334155" CornerRadius="12" Padding="0">
                         <Entry x:Name="SenhaEntry"
                                Placeholder="Senha"
+                               
                                IsPassword="True"
                                TextColor="White"
                                PlaceholderColor="#9CA3AF" />
@@ -86,6 +88,11 @@
                     FontAttributes="Bold"
                     CornerRadius="15"
                     Clicked="OnLoginClicked" />
+
+            <Button
+                x:Name="Possuicadastro"
+                Text="Já possui cadastro"
+                Clicked="Possuicadastro_Clicked"></Button>
 
         </VerticalStackLayout>
     </ScrollView>
