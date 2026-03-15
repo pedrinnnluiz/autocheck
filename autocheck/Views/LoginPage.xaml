@@ -92,7 +92,12 @@
             <Button
                 x:Name="Possuicadastro"
                 Text="Já possui cadastro"
-                Clicked="Possuicadastro_Clicked"></Button>
+                Clicked="Possuicadastro_Clicked"
+                TextColor="White"
+                HeightRequest="55"
+                FontSize="18"
+                FontAttributes="Bold"
+                CornerRadius="15" ></Button>
 
         </VerticalStackLayout>
     </ScrollView>

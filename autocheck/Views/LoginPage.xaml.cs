@@ -27,7 +27,8 @@ namespace autocheck.Views
             {
                 await DisplayAlert("Erro", "Digite um número válido", "OK");
                 return;
-            } 
+            }
+           
             var usuario = new Usuario
             {
                 Nome = NomeEntry.Text,
@@ -38,6 +39,7 @@ namespace autocheck.Views
 
                
             };
+            await App.DataBase.SalvarUsuario(usuario);
             await Shell.Current.GoToAsync(
      $"//SelecaoPage?ClienteNome={NomeEntry.Text}&Telefone={TelefoneEntry.Text}"
  );
@@ -45,11 +47,10 @@ namespace autocheck.Views
 
         private async void Possuicadastro_Clicked(object sender, EventArgs e)
         {
-            bool confirmar = await DisplayAlert("Confirmar", "Tem certeza de que deseja excluir sua conta", "sim", "nao");
+            bool confirmar = await DisplayAlert("Já possui cadastro ", "Prosseguir", "sim", "nao");
 
-            if (confirmar) {
-                await db.DeletarUsuario(usuario.id);
+       
         } }
 
     }
-}
+
