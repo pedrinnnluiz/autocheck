@@ -14,6 +14,8 @@ namespace autocheck.Models
         public double Dias { get; set; }
         public double Total { get; set; }
 
+        public string Email { get; set; }
+
         public string Senha { get; set; }
 
         public double Cep { get; set; }
