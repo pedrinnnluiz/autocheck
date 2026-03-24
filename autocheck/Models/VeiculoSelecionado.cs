@@ -1,7 +1,12 @@
+using SQLite;
+
 namespace autocheck.Models
 {
     public class VeiculoSelecionado
     {
+
+        public int Carroid { get; set; }
+        
         public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
         public string Imagem { get; set; } = string.Empty;
