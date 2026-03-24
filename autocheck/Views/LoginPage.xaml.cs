@@ -28,8 +28,7 @@ namespace autocheck.Views
             {
                 await DisplayAlert("Atenção", "Preencha todos os campos para continuar.", "OK");
                 return;
-            }
-
+            
             if (!(EmailEntry.Text.Contains("@gmail.com") || EmailEntry.Text.Contains("@outlook.com") || EmailEntry.Text.Contains("@hotmail.com") ))
             {
                 await DisplayAlert("Erro", "O email precisa ter @ endereçamento", "Ok");
@@ -47,9 +46,38 @@ namespace autocheck.Views
                 await DisplayAlert("ERRO!", "O número de telefone deve ter DDD e os 9 números", "OK");
             }
 
+
+            int clienteId;
+
+            if (!int.TryParse(CpfEntry.Text, out clienteId))
+            {
+                await DisplayAlert("Erro", "Digite um número válido", "OK");
+                return;
+            }
+           
+            var usuario = new Usuario
+            {
+                Nome = NomeEntry.Text,
+                Telefone = TelefoneEntry.Text,
+                Cpf = CpfEntry.Text,
+                Senha = SenhaEntry.Text,
+                Email = EmailEntry.Text,
+
+               
+            };
+            await App.Data.SalvarUsuario(usuario);
+
             await Shell.Current.GoToAsync(
      $"//SelecaoPage?ClienteNome={NomeEntry.Text}&Telefone={TelefoneEntry.Text}"
  );
         }
+
+        private async void Possuicadastro_Clicked(object sender, EventArgs e)
+        {
+            bool confirmar = await DisplayAlert("Já possui cadastro ", "Prosseguir", "sim", "nao");
+
+       
+        } }
+
     }
-}
+
