@@ -40,7 +40,7 @@ namespace autocheck.Views
 
         private async void OnFinalizarClicked(object sender, EventArgs e)
         {
-            await Navigation.PopToRootAsync();
+            await Navigation.PushAsync(new LoginPage());
         }
     }
 }

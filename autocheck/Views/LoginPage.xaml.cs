@@ -29,6 +29,7 @@ namespace autocheck.Views
                 await DisplayAlert("Atenção", "Preencha todos os campos para continuar.", "OK");
                 return;
 
+<<<<<<< HEAD
                 if (!(EmailEntry.Text.Contains("@gmail.com") || EmailEntry.Text.Contains("@outlook.com") || EmailEntry.Text.Contains("@hotmail.com")))
                 {
                     await DisplayAlert("Erro", "O email precisa ter @ endereçamento", "Ok");
@@ -65,6 +66,31 @@ namespace autocheck.Views
             }
         }
         
+=======
+            int clienteId;
+
+            if (!int.TryParse(CpfEntry.Text, out clienteId))
+            {
+                await DisplayAlert("Erro", "Digite um número válido", "OK");
+                return;
+            }
+           
+            var usuario = new Usuario
+            {
+                Nome = NomeEntry.Text,
+                Telefone = TelefoneEntry.Text,
+                Cpf = CpfEntry.Text,
+                Senha = SenhaEntry.Text,
+                Email = EmailEntry.Text,
+
+               
+            };
+            await App.DataBase.SalvarUsuario(usuario);
+            await Shell.Current.GoToAsync(
+     $"//SelecaoPage?ClienteNome={NomeEntry.Text}&Telefone={TelefoneEntry.Text}"
+ );
+        }
+>>>>>>> 62b0968a3129d734e18eb1169337ef7a1f3c434f
 
         private async void Possuicadastro_Clicked(object sender, EventArgs e)
         {

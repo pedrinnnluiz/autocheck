@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+<<<<<<< HEAD
 
+=======
+using autocheck.Models;
+>>>>>>> 62b0968a3129d734e18eb1169337ef7a1f3c434f
 
 namespace autocheck.Models
 {
@@ -12,6 +16,7 @@ namespace autocheck.Models
     {
         readonly SQLiteAsyncConnection _db;
 
+<<<<<<< HEAD
 
 
         public DataBaseService(string dbPath)
@@ -41,4 +46,23 @@ namespace autocheck.Models
             return _db.Table<Usuario>().ToListAsync();
         }
     }
+=======
+       public DataBaseService (string dbPath)
+
+        {
+            _db = new SQLiteAsyncConnection(dbPath);
+            _db.CreateTableAsync<Usuario>().Wait();
+            _db.CreateTableAsync<VeiculoSelecionado>().Wait();
+        }
+
+        public Task<int> SalvarUsuario(Usuario usuario)
+        {
+            return _db.InsertAsync(usuario);
+        }
+        public Task<int> DeletarUsuario (int Usuarioid)
+        {
+            return _db.DeleteAsync<Usuario>(Usuarioid);
+        }
+    } 
+>>>>>>> 62b0968a3129d734e18eb1169337ef7a1f3c434f
 }
