@@ -4,100 +4,78 @@ namespace autocheck.Views
 {
     public partial class LoginPage : ContentPage
     {
-        
         public LoginPage()
         {
             InitializeComponent();
-
         }
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-            var usuario = new Usuario
-            {
-                Senha = SenhaEntry.Text,
-                Nome = NomeEntry.Text,
-                Telefone = TelefoneEntry.Text,
-            };
-            await App.Database.SalvarUsuario(usuario);
+            // Valida se todos os campos foram preenchidos
             if (string.IsNullOrWhiteSpace(NomeEntry.Text) ||
-            string.IsNullOrWhiteSpace(CpfEntry.Text) ||
-            string.IsNullOrWhiteSpace(TelefoneEntry.Text) ||
-            string.IsNullOrWhiteSpace(EmailEntry.Text) ||
-            string.IsNullOrWhiteSpace(SenhaEntry.Text))
+                string.IsNullOrWhiteSpace(CpfEntry.Text) ||
+                string.IsNullOrWhiteSpace(TelefoneEntry.Text) ||
+                string.IsNullOrWhiteSpace(EmailEntry.Text) ||
+                string.IsNullOrWhiteSpace(SenhaEntry.Text))
             {
                 await DisplayAlert("Atenção", "Preencha todos os campos para continuar.", "OK");
                 return;
-
-<<<<<<< HEAD
-                if (!(EmailEntry.Text.Contains("@gmail.com") || EmailEntry.Text.Contains("@outlook.com") || EmailEntry.Text.Contains("@hotmail.com")))
-                {
-                    await DisplayAlert("Erro", "O email precisa ter @ endereçamento", "Ok");
-                    return;
-                }
-
-                if (SenhaEntry.Text.Length < 8)
-                {
-                    await DisplayAlert("Erro", "A senha precisa ter ao menos 8 Caracteres", "OK");
-                    return;
-                }
-
-                if (TelefoneEntry.Text.Length < 11)
-                {
-                    await DisplayAlert("ERRO!", "O número de telefone deve ter DDD e os 9 números", "OK");
-                }
-
-
-                int clienteId;
-
-                if (!int.TryParse(CpfEntry.Text, out clienteId))
-                {
-                    await DisplayAlert("Erro", "Digite um número válido", "OK");
-                    return;
-                }
-
-               
-                
-
-                await Shell.Current.GoToAsync(
-         $"//SelecaoPage?ClienteNome={NomeEntry.Text}&Telefone={TelefoneEntry.Text}"
-     );
-
             }
-        }
-        
-=======
-            int clienteId;
 
-            if (!int.TryParse(CpfEntry.Text, out clienteId))
+            // Valida email
+            if (!(EmailEntry.Text.Contains("@gmail.com") ||
+                  EmailEntry.Text.Contains("@outlook.com") ||
+                  EmailEntry.Text.Contains("@hotmail.com")))
             {
-                await DisplayAlert("Erro", "Digite um número válido", "OK");
+                await DisplayAlert("Erro", "O email precisa ser válido (@gmail, @outlook ou @hotmail).", "OK");
                 return;
             }
-           
+
+            // Valida CPF
+            if (CpfEntry.Text.Length != 11 || !long.TryParse(CpfEntry.Text, out long cpfConvertido))
+            {
+                await DisplayAlert("Atenção", "O CPF deve conter 11 dígitos numéricos.", "OK");
+                return;
+            }
+
+            // Valida senha
+            if (SenhaEntry.Text.Length < 8)
+            {
+                await DisplayAlert("Erro", "A senha precisa ter ao menos 8 caracteres.", "OK");
+                return;
+            }
+
+            // Valida telefone
+            if (TelefoneEntry.Text.Length < 11)
+            {
+                await DisplayAlert("Erro", "O número de telefone deve ter DDD e 9 dígitos.", "OK");
+                return;
+            }
+          
+            
             var usuario = new Usuario
             {
                 Nome = NomeEntry.Text,
                 Telefone = TelefoneEntry.Text,
-                Cpf = CpfEntry.Text,
+                Cpf = cpfConvertido,
                 Senha = SenhaEntry.Text,
-                Email = EmailEntry.Text,
-
-               
+                Email = EmailEntry.Text
             };
-            await App.DataBase.SalvarUsuario(usuario);
-            await Shell.Current.GoToAsync(
-     $"//SelecaoPage?ClienteNome={NomeEntry.Text}&Telefone={TelefoneEntry.Text}"
- );
+
+            // Salva no banco
+            await App.Database.SalvarUsuario(usuario);
+
+            // Navega para próxima página
+            await Navigation.PushAsync(new SelecaoPage());
         }
->>>>>>> 62b0968a3129d734e18eb1169337ef7a1f3c434f
 
         private async void Possuicadastro_Clicked(object sender, EventArgs e)
         {
-            bool confirmar = await DisplayAlert("Já possui cadastro ", "Prosseguir", "sim", "nao");
-
-       
-        } }
-
+            bool confirmar = await DisplayAlert("Já possui cadastro?", "Deseja prosseguir?", "Sim", "Não");
+            if (confirmar)
+            {
+              
+            }
+        }
     }
-
+}
