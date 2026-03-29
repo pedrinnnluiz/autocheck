@@ -65,9 +65,9 @@
                     Clicked="OnFinalizarClicked"/>
 
             <Button
-         x:Name="PerfilButton"
-         Text="Ir para perfil"
-         Clicked="PerfilButton_Clicked"
+x:Name="PerfilButton"
+Text="Ir para perfil"
+Clicked="PerfilButton_Clicked"
          ></Button>
 
         </VerticalStackLayout>

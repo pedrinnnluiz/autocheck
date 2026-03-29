@@ -1,4 +1,4 @@
-using autocheck.Models;
+ï»¿using autocheck.Models;
 using SQLite;
 
 namespace autocheck.Views
@@ -12,34 +12,34 @@ namespace autocheck.Views
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-      
+
             if (string.IsNullOrWhiteSpace(NomeEntry.Text) ||
                 string.IsNullOrWhiteSpace(CpfEntry.Text) ||
                 string.IsNullOrWhiteSpace(TelefoneEntry.Text) ||
                 string.IsNullOrWhiteSpace(EmailEntry.Text) ||
                 string.IsNullOrWhiteSpace(SenhaEntry.Text))
             {
-                await DisplayAlert("Atenção", "Preencha todos os campos para continuar.", "OK");
+                await DisplayAlert("Atenï¿½ï¿½o", "Preencha todos os campos para continuar.", "OK");
                 return;
             }
 
-       
+
             if (!(EmailEntry.Text.Contains("@gmail.com") ||
                   EmailEntry.Text.Contains("@outlook.com") ||
                   EmailEntry.Text.Contains("@hotmail.com")))
             {
-                await DisplayAlert("Erro", "O email precisa ser válido (@gmail, @outlook ou @hotmail).", "OK");
+                await DisplayAlert("Erro", "O email precisa ser vï¿½lido (@gmail, @outlook ou @hotmail).", "OK");
                 return;
             }
 
-           
+
             if (CpfEntry.Text.Length != 11 || !long.TryParse(CpfEntry.Text, out long cpfConvertido))
             {
-                await DisplayAlert("Atenção", "O CPF deve conter 11 dígitos numéricos.", "OK");
+                await DisplayAlert("Atenï¿½ï¿½o", "O CPF deve conter 11 dï¿½gitos numï¿½ricos.", "OK");
                 return;
             }
 
-           
+
             if (SenhaEntry.Text.Length < 8)
             {
                 await DisplayAlert("Erro", "A senha precisa ter ao menos 8 caracteres.", "OK");
@@ -51,9 +51,9 @@ namespace autocheck.Views
             if (telefoneTexto.Length != 11 ||
                 !long.TryParse(telefoneTexto, out long telefoneConvertido))
             {
-                await DisplayAlert("Erro", "O telefone deve conter 11 dígitos numéricos.", "OK");
+                await DisplayAlert("Erro", "O telefone deve conter 11 dï¿½gitos numï¿½ricos.", "OK");
                 return;
-            }   
+            }
 
 
             var usuario = new Usuario
@@ -65,16 +65,16 @@ namespace autocheck.Views
                 Email = EmailEntry.Text
             };
 
-           
+
             await App.Database.SalvarUsuario(usuario);
 
-          
+
             await Navigation.PushAsync(new SelecaoPage());
         }
 
         private async void Possuicadastro_Clicked(object sender, EventArgs e)
         {
-            bool confirmar = await DisplayAlert("Já possui cadastro?", "Deseja prosseguir?", "Sim", "Não");
+            bool confirmar = await DisplayAlert("Jï¿½ possui cadastro?", "Deseja prosseguir?", "Sim", "Nï¿½o");
             if (confirmar)
             {
                 await Navigation.PushAsync(new LoginPage());

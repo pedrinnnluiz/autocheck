@@ -12,11 +12,18 @@ namespace autocheck.Models
         {
             _db = new SQLiteAsyncConnection(dbPath);
 
-            _db.CreateTableAsync<Carro>().Wait();
-            _db.CreateTableAsync<VeiculoSelecionado>().Wait();
-            _db.CreateTableAsync<Usuario>().Wait();
+            InicializarBanco();
         }
 
+     
+        private void InicializarBanco()
+        {
+            _db.CreateTableAsync<Usuario>().Wait();
+            _db.CreateTableAsync<Carro>().Wait();
+            _db.CreateTableAsync<VeiculoSelecionado>().Wait();
+        }
+
+     
         public Task<int> SalvarUsuario(Usuario usuario)
         {
             usuario.Email = usuario.Email.Trim().ToLower();
@@ -49,13 +56,13 @@ namespace autocheck.Models
                       .FirstOrDefaultAsync();
         }
 
-
+     
         public Task<List<Carro>> ListarCarros()
         {
             return _db.Table<Carro>().ToListAsync();
         }
 
-        
+      
 
         public Task<int> SalvarVeiculoSelecionado(VeiculoSelecionado veiculo)
         {
