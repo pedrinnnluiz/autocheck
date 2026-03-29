@@ -38,7 +38,7 @@ namespace autocheck.Models
         }
 
         // Listar clientes
-        public Task<List<Usuario>> ListarCliente()
+        public Task<List<Usuario>> ListarUsuario()
         {
             return _db.Table<Usuario>().ToListAsync();
         }
@@ -47,6 +47,15 @@ namespace autocheck.Models
         public Task<int> DeletarUsuario(int usuarioId)
         {
             return _db.DeleteAsync<Usuario>(usuarioId);
+        }
+
+        
+        public Task <Usuario> LoginAsync(string Email, string Senha)
+        {
+            return _db.Table<Usuario>()
+               .Where(x => x.Email == Email && x.Senha == Senha)
+               .FirstOrDefaultAsync();
+
         }
     }
 }

@@ -1,17 +1,18 @@
 using autocheck.Models;
+using SQLite;
 
 namespace autocheck.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class CadastroPage : ContentPage
     {
-        public LoginPage()
+        public CadastroPage()
         {
             InitializeComponent();
         }
 
         private async void OnLoginClicked(object sender, EventArgs e)
         {
-            // Valida se todos os campos foram preenchidos
+      
             if (string.IsNullOrWhiteSpace(NomeEntry.Text) ||
                 string.IsNullOrWhiteSpace(CpfEntry.Text) ||
                 string.IsNullOrWhiteSpace(TelefoneEntry.Text) ||
@@ -22,7 +23,7 @@ namespace autocheck.Views
                 return;
             }
 
-            // Valida email
+       
             if (!(EmailEntry.Text.Contains("@gmail.com") ||
                   EmailEntry.Text.Contains("@outlook.com") ||
                   EmailEntry.Text.Contains("@hotmail.com")))
@@ -31,21 +32,20 @@ namespace autocheck.Views
                 return;
             }
 
-            // Valida CPF
+           
             if (CpfEntry.Text.Length != 11 || !long.TryParse(CpfEntry.Text, out long cpfConvertido))
             {
                 await DisplayAlert("Atenção", "O CPF deve conter 11 dígitos numéricos.", "OK");
                 return;
             }
 
-            // Valida senha
+           
             if (SenhaEntry.Text.Length < 8)
             {
                 await DisplayAlert("Erro", "A senha precisa ter ao menos 8 caracteres.", "OK");
                 return;
             }
 
-            // Valida telefone
             if (TelefoneEntry.Text.Length < 11)
             {
                 await DisplayAlert("Erro", "O número de telefone deve ter DDD e 9 dígitos.", "OK");
@@ -62,10 +62,10 @@ namespace autocheck.Views
                 Email = EmailEntry.Text
             };
 
-            // Salva no banco
+           
             await App.Database.SalvarUsuario(usuario);
 
-            // Navega para próxima página
+          
             await Navigation.PushAsync(new SelecaoPage());
         }
 
@@ -74,7 +74,7 @@ namespace autocheck.Views
             bool confirmar = await DisplayAlert("Já possui cadastro?", "Deseja prosseguir?", "Sim", "Não");
             if (confirmar)
             {
-              
+                await Navigation.PushAsync(new LoginPage());
             }
         }
     }

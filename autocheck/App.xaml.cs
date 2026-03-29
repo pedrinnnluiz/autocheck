@@ -17,7 +17,7 @@ namespace autocheck
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "autocheck.db2");
             Database = new DataBaseService(dbPath);
                 
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new CadastroPage());
 
         }
 

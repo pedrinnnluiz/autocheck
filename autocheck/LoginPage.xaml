@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="autocheck.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout Spacing="20">
+        <Label Text="Insira Email e Senha"
+               HorizontalOptions="Center"
+               FontSize="32"
+               ></Label>
+        <VerticalStackLayout>
+            <Frame
+                BackgroundColor="#121212"
+                CornerRadius="20"
+                HasShadow="True">
+            </Frame>
+            <Entry
+            x:Name="EmailEntry"
+            Placeholder="Insira seu email"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            ></Entry>
+
+        <Entry
+            x:Name="SenhaEntry"
+    Placeholder="Insira sua senha"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    ></Entry>
+
+        <Button
+            x:Name="LoginButton"
+            Text="Login"
+            Clicked="LoginButton_Clicked"></Button>
+            
+        </VerticalStackLayout>
+            
+    </VerticalStackLayout>
+</ContentPage>

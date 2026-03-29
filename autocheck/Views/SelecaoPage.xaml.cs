@@ -100,7 +100,7 @@ namespace autocheck.Views
                 { "Telefone", Telefone }
             };
 
-            await Shell.Current.GoToAsync("ConfirmacaoPage", parameters);
+            await Navigation.PushAsync(new ConfirmacaoPage());
         }
     }
 }
