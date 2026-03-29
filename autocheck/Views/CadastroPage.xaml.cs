@@ -46,12 +46,14 @@ namespace autocheck.Views
                 return;
             }
 
-            if (TelefoneEntry.Text.Length < 11 ||
-    !long.TryParse(TelefoneEntry.Text, out long telefoneConvertido))
+            string telefoneTexto = TelefoneEntry.Text?.Trim();
+
+            if (telefoneTexto.Length != 11 ||
+                !long.TryParse(telefoneTexto, out long telefoneConvertido))
             {
                 await DisplayAlert("Erro", "O telefone deve conter 11 dígitos numéricos.", "OK");
                 return;
-            }
+            }   
 
 
             var usuario = new Usuario
