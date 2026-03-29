@@ -64,6 +64,12 @@
                     BackgroundColor="#7B61FF"
                     Clicked="OnFinalizarClicked"/>
 
+            <Button
+         x:Name="PerfilButton"
+         Text="Ir para perfil"
+         Clicked="PerfilButton_Clicked"
+         ></Button>
+
         </VerticalStackLayout>
     </ScrollView>
 

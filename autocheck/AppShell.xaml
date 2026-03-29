@@ -23,4 +23,19 @@
         ContentTemplate="{DataTemplate views:ConfirmacaoPage}"
         Route="ConfirmacaoPage" />
 
+    <TabBar>
+
+        
+        <ShellContent
+            Title="Home"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate local:SelecaoPage}" />
+
+        <ShellContent
+            Title="Perfil"
+            Icon="user.png"
+            ContentTemplate="{DataTemplate local:PerfilPage}" />
+
+    </TabBar>
+
 </Shell>

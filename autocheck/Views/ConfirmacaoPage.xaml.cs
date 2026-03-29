@@ -42,5 +42,10 @@ namespace autocheck.Views
         {
             await Navigation.PushAsync(new CadastroPage());
         }
+
+        private async void PerfilButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PerfilPage());
+        }
     }
 }

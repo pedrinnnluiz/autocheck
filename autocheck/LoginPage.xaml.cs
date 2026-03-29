@@ -5,36 +5,39 @@ namespace autocheck;
 
 public partial class LoginPage : ContentPage
 {
-	private Usuario _usuarioLogado;
-	public LoginPage()
-	{
-		InitializeComponent();
-	}
+    private Usuario _usuarioLogado;
 
-	private async void LoginButton_Clicked(object sender, EventArgs e)
-	{
-		if (string.IsNullOrWhiteSpace(SenhaEntry.Text) ||
-			string.IsNullOrWhiteSpace(EmailEntry.Text)) {
-			await DisplayAlert("Atenção", "Insira todos os campos para prosseguir", "Ok");
-		}
+    public LoginPage()
+    {
+        InitializeComponent();
+    }
 
-		var usuario = await App.Database.LoginAsync(
-			SenhaEntry.Text,
-			EmailEntry.Text);
+    private async void LoginButton_Clicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(SenhaEntry.Text) ||
+            string.IsNullOrWhiteSpace(EmailEntry.Text))
+        {
+            await DisplayAlert("Atenção", "Insira todos os campos para prosseguir", "Ok");
+            return;
+        }
 
-		if (usuario != null) {
-			_usuarioLogado = usuario;
+        var usuario = await App.Database.LoginAsync(
+            EmailEntry.Text,
+            SenhaEntry.Text);
 
-			await DisplayAlert("Sucesso", "Bem vindo", "Seguir");
+        if (usuario != null)
+        {
+            _usuarioLogado = usuario;
 
-			await Navigation.PushAsync(new SelecaoPage());
+            Preferences.Set("UsuarioId", usuario.Id);
 
-			}
-		else
-		{
-			await DisplayAlert("Não foi possível efetuar login", "Dados inválidos,", "Voltar");
-
-		}
-
-	} 
+            await DisplayAlert("Sucesso", "Bem-vindo!", "Seguir");
+    
+             await Navigation.PushAsync(new SelecaoPage());
+        }
+        else
+        {
+            await DisplayAlert("Erro", "Email ou senha inválidos", "OK");
+        }
+    }
 }
