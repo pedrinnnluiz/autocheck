@@ -49,7 +49,7 @@ namespace autocheck.Models
             return _db.DeleteAsync<Usuario>(usuarioId);
         }
 
-        
+           
         public Task <Usuario> LoginAsync(string Email, string Senha)
         {
             return _db.Table<Usuario>()
