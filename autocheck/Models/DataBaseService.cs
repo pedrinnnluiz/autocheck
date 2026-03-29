@@ -43,7 +43,7 @@ namespace autocheck.Models
             return _db.Table<Usuario>().ToListAsync();
         }
 
-        // Deletar usuário por ID
+        
         public Task<int> DeletarUsuario(int usuarioId)
         {
             return _db.DeleteAsync<Usuario>(usuarioId);
@@ -56,6 +56,22 @@ namespace autocheck.Models
                .Where(x => x.Email == Email && x.Senha == Senha)
                .FirstOrDefaultAsync();
 
+
+        }
+        // Buscar usuário por ID
+        public Task<Usuario> GetUsuario(int id)
+        {
+            return _db.Table<Usuario>()
+                      .Where(u => u.Id == id)
+                      .FirstOrDefaultAsync();
+        }
+
+        // Buscar veículos selecionados (histórico do usuário)
+        public Task<List<VeiculoSelecionado>> GetLocacoesByUsuario(int usuarioId)
+        {
+            return _db.Table<VeiculoSelecionado>()
+                      .Where(v => v.UsuarioId== usuarioId)
+                      .ToListAsync();
         }
     }
 }

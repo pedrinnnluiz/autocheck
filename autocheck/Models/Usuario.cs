@@ -20,6 +20,7 @@ namespace autocheck.Models
         public string Senha { get; set; }
 
         public double Cep { get; set; }
+        public string foto { get; set;  } 
 
         public string Nome { get; set; }
         public string Telefone { get; set; }

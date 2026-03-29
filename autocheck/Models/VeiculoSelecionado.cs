@@ -6,7 +6,7 @@ namespace autocheck.Models
     {
 
         public int Carroid { get; set; }
-        
+        public int UsuarioId { get; set; }
         public string Nome { get; set; } = string.Empty;
         public double Preco { get; set; }
         public string Imagem { get; set; } = string.Empty;

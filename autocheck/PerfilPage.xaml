@@ -1,0 +1,52 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="autocheck.Views.PerfilPage"
+             Title="Perfil">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Foto -->
+            <Image x:Name="fotoPerfil"
+                   HeightRequest="120"
+                   WidthRequest="120"
+                   HorizontalOptions="Center" />
+
+            <!-- Nome -->
+            <Label x:Name="nomeLabel"
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+
+            <!-- Email -->
+            <Label x:Name="emailLabel"
+                   TextColor="Gray"
+                   HorizontalOptions="Center" />
+
+            <!-- Histórico -->
+            <Label Text="Histórico de Locações"
+                   FontAttributes="Bold"
+                   FontSize="18"/>
+
+            <CollectionView x:Name="locacoesList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5" Padding="10" BorderColor="Gray">
+                            <VerticalStackLayout>
+
+                                <Label Text="{Binding NomeCarro}"
+                                       FontAttributes="Bold"/>
+
+                                <Label Text="{Binding DataInicio}" />
+                                <Label Text="{Binding DataFim}" />
+                                <Label Text="{Binding Valor}" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
