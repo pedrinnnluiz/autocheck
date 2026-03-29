@@ -46,17 +46,18 @@ namespace autocheck.Views
                 return;
             }
 
-            if (TelefoneEntry.Text.Length < 11)
+            if (TelefoneEntry.Text.Length < 11 ||
+    !long.TryParse(TelefoneEntry.Text, out long telefoneConvertido))
             {
-                await DisplayAlert("Erro", "O número de telefone deve ter DDD e 9 dígitos.", "OK");
+                await DisplayAlert("Erro", "O telefone deve conter 11 dígitos numéricos.", "OK");
                 return;
             }
-          
-            
+
+
             var usuario = new Usuario
             {
                 Nome = NomeEntry.Text,
-                Telefone = TelefoneEntry.Text,
+                Telefone = telefoneConvertido,
                 Cpf = cpfConvertido,
                 Senha = SenhaEntry.Text,
                 Email = EmailEntry.Text
